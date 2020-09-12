@@ -20,7 +20,7 @@ def parseArgs(argv):
     return inputfile
 
 def prepareRawData(inputfile):
-    cols = ['log_date', 'date', 'hours', 'vehicle_no', 'vehicle_type', 'log_type']
+    cols = ['log_date', 'date', 'vehicle_no', 'vehicle_type', 'log_type']
     e_df = pd.DataFrame(columns = cols)
     if inputfile:
         out_data = []
@@ -29,12 +29,10 @@ def prepareRawData(inputfile):
                 cols_data = line.split(",")
                 log_date = cols_data[0]
                 date = datetime.datetime.strptime(log_date, "%Y-%m-%d %H:%M:%S.%f").date()
-                hours = datetime.datetime.strptime(log_date, "%Y-%m-%d %H:%M:%S.%f").hour
-                #minutes = datetime.datetime.strptime(log_date, "%Y-%m-%d %H:%M:%S.%f").minute
                 v_no = cols_data[1]
                 v_type = cols_data[2]
                 log_type = cols_data[3].rstrip("\n")
-                out_data.append([log_date,date,hours,v_no,v_type,log_type])
+                out_data.append([log_date,date,v_no,v_type,log_type])
         v_df = pd.DataFrame(out_data, columns=cols)
         return v_df
     return e_df
